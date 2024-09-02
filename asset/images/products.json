@@ -1,0 +1,45 @@
+[
+    {
+      "name": "Offline Product 1",
+      "imageUrl": "asset/images/Product 2.png",
+      "price": "200",
+      "description": "Description for Offline Product 1"
+    },
+    {
+      "name": "Offline Product 2",
+      "imageUrl": "asset/images/Product 1.png",
+      "price": "300",
+      "description": "Description for Offline Product 2"
+    },
+    {
+        "name": "Offline Product 2",
+        "imageUrl": "asset/images/Product 3.png",
+        "price": "300",
+        "description": "Description for Offline Product 2"
+      },
+      {
+        "name": "Offline Product 2",
+        "imageUrl": "asset/images/Product 4.png",
+        "price": "300",
+        "description": "Description for Offline Product 2"
+      },
+      {
+        "name": "Offline Product 2",
+        "imageUrl": "asset/images/Product 5.png",
+        "price": "300",
+        "description": "Description for Offline Product 2"
+      },
+      {
+        "name": "Offline Product 2",
+        "imageUrl": "asset/images/Product 6.png",
+        "price": "300",
+        "description": "Description for Offline Product 2"
+      },
+      {
+        "name": "Offline Product 2",
+        "imageUrl": "asset/images/product2.png",
+        "price": "300",
+        "description": "Description for Offline Product 2"
+      }
+  ]
+  
