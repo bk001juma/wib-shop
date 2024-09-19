@@ -45,21 +45,21 @@ class AuthNotifier extends StateNotifier<bool> {
   }
 
   Future<void> register({
-    required String name,
+    required String username,
     required String email,
     required String password,
     // ignore: non_constant_identifier_names
-    required String password_confirmation,
+    required String confirmpassword,
     required BuildContext context,
   }) async {
     state = true; // Loading state
 
     try {
       final success = await _authServices.register(
-        name: name,
+        username: username,
         email: email,
         password: password,
-        password_confirmation: password_confirmation,
+        confirmpassword: confirmpassword,
       );
 
       if (success) {

@@ -16,7 +16,7 @@ class MyWidget extends StatelessWidget {
             ),
             CarouselSlider(
               options: CarouselOptions(
-                height: 200.0,
+                height: 300.0,
                 aspectRatio: 16 / 9,
                 viewportFraction: 0.8,
                 initialPage: 0,
@@ -30,10 +30,11 @@ class MyWidget extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
               ),
               items: [
-                "https://cdn.open-pr.com/T/5/T507166583_g.jpg",
-                "https://www.retcustomsbrokerage.com/wp-content/themes/retcustoms/images/resource/br.jpg",
-                "https://images.northerntrust.com/content/dam/northerntrust/pws/nt/images/wealth-management/brokerage_851x478.jpg",
-                "https://media.istockphoto.com/id/1314018414/photo/home-brokerage-business-introduces-architectural-house-designs-to-clients-real-estate-concepts.jpg?s=612x612&w=0&k=20&c=39O3qnguCY9ogDoNQy3e4-0AymLwMfGjxNcJAKJ2pu8="
+                "asset/images/skirt.jpg",
+                "asset/images/shirts.jpg",
+                "asset/images/shoes.png",
+                "asset/images/bags.jpg",
+                "asset/images/t-shirtkali.jpeg"
               ].map((item) {
                 return Builder(
                   builder: (BuildContext context) {
@@ -46,7 +47,7 @@ class MyWidget extends StatelessWidget {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.network(item, fit: BoxFit.cover),
+                        child: Image.asset(item, fit: BoxFit.fill),
                       ),
                     );
                   },

@@ -31,10 +31,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       final authNotifier = ref.read(authNotifierProvider.notifier);
 
       authNotifier.register(
-        name: _nameController.text.trim(),
+        username: _nameController.text.trim(),
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-        password_confirmation: _confirmPasswordController.text.trim(),
+        confirmpassword: _confirmPasswordController.text.trim(),
         context: context,
       );
     }

@@ -1,15 +1,34 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wibSHOP/services/product_services.dart';
 
+// Define a StateNotifier for managing product fetching
+class ProductNotifier extends StateNotifier<AsyncValue<List<Product>>> {
+  final ProductService _productService;
+
+  ProductNotifier(this._productService) : super(const AsyncValue.loading()) {
+    fetchProducts();
+  }
+
+  Future<void> fetchProducts() async {
+    try {
+      final products = await _productService.fetchProducts();
+      state = AsyncValue.data(products);
+    } catch (error, stackTrace) {
+      state = AsyncValue.error(error, stackTrace); // Include stackTrace
+    }
+  }
+}
+
 // Define a provider for ProductService
 final productServiceProvider = Provider<ProductService>((ref) {
   return ProductService();
 });
 
-// Define a FutureProvider for fetching products
-final productsProvider = FutureProvider<List<Product>>((ref) async {
+// Define a provider for ProductNotifier
+final productsProvider =
+    StateNotifierProvider<ProductNotifier, AsyncValue<List<Product>>>((ref) {
   final productService = ref.watch(productServiceProvider);
-  return productService.fetchProducts();
+  return ProductNotifier(productService);
 });
 
 // Define a StateNotifier for posting products
@@ -24,7 +43,7 @@ class ProductPostNotifier extends StateNotifier<AsyncValue<void>> {
       await _productService.postProduct(product);
       state = const AsyncValue.data(null);
     } catch (e, stackTrace) {
-      state = AsyncValue.error(e, stackTrace);
+      state = AsyncValue.error(e, stackTrace); // Ensure stackTrace is included
     }
   }
 }

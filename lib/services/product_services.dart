@@ -3,10 +3,11 @@ import 'package:http/http.dart' as http;
 
 class ProductService {
   final String _fetchApiUrl =
-      'http://192.168.43.135:8000/api/products'; // URL for fetching products
+      'http://192.168.0.27:8080/api/products/get'; // URL for fetching products
   final String _postApiUrl =
-      'http://192.168.43.135:8000/api/products'; // URL for posting products
+      'http://localhost:8080/api/products'; // URL for posting products
 
+  // Method to fetch all products
   Future<List<Product>> fetchProducts() async {
     final response = await http.get(Uri.parse(_fetchApiUrl));
 
@@ -14,7 +15,21 @@ class ProductService {
       List<dynamic> data = jsonDecode(response.body);
       return data.map((json) => Product.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to load products');
+      throw Exception('Failed to load products: ${response.statusCode}');
+    }
+  }
+
+  // Method to fetch products by category
+  Future<List<Product>> getProductsByCategory(String category) async {
+    final response =
+        await http.get(Uri.parse('$_fetchApiUrl?category=$category'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+      return data.map((json) => Product.fromJson(json)).toList();
+    } else {
+      throw Exception(
+          'Failed to load products for category $category: ${response.statusCode}');
     }
   }
 
@@ -28,7 +43,7 @@ class ProductService {
     );
 
     if (response.statusCode != 201) {
-      throw Exception('Failed to post product');
+      throw Exception('Failed to post product: ${response.statusCode}');
     }
   }
 }
@@ -39,6 +54,7 @@ class Product {
   final String imageUrl;
   final double price;
   final String description;
+  final String category;
 
   Product({
     required this.id,
@@ -46,6 +62,7 @@ class Product {
     required this.imageUrl,
     required this.price,
     required this.description,
+    required this.category,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -55,6 +72,7 @@ class Product {
       imageUrl: json['image'] as String? ?? '',
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       description: json['description'] as String? ?? 'No description',
+      category: json['category'] as String? ?? "",
     );
   }
 
@@ -65,6 +83,7 @@ class Product {
       'image': imageUrl,
       'price': price,
       'description': description,
+      'category': category,
     };
   }
 }

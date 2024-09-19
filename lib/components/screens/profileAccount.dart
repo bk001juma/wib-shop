@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wibSHOP/components/screens/Privacy.dart';
 import 'package:wibSHOP/components/screens/Settings.dart';
 import 'package:wibSHOP/components/screens/help_center.dart';
-import 'package:wibSHOP/components/screens/manage_store.dart';
 import 'package:wibSHOP/components/screens/my_order.dart';
 import 'package:wibSHOP/components/screens/my_profile.dart';
 import 'package:wibSHOP/components/screens/order_history.dart';
@@ -123,14 +122,14 @@ class Profileaccount extends StatelessWidget {
                   Icons.chevron_right,
                   color: Colors.black,
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ManageStorePage(),
-                    ),
-                  );
-                },
+                // onTap: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => ManageStorePage(),
+                //     ),
+                //   );
+                // },
               ),
               ListTile(
                 leading:

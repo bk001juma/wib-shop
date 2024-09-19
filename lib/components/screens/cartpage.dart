@@ -102,52 +102,54 @@ class CartPage extends ConsumerWidget {
             ),
             recommendedProductsAsync.when(
               data: (products) {
-                final limitedProduct = products.take(5).toList();
-                return SizedBox(
-                  height: 200.0,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: limitedProduct.length,
-                    itemBuilder: (context, index) {
-                      final product = limitedProduct[index];
-                      return Card(
-                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Column(
-                          children: [
-                            Image.network(
-                              product.imageUrl,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Icon(Icons.error,
-                                    size: 100); // Handle broken image links
-                              },
-                            ),
-                            Text(product.name),
-                            Text("Tsh${product.price.toStringAsFixed(2)}"),
-                            ElevatedButton(
-                              onPressed: () {
-                                ref.read(cartProvider.notifier).addToCart(
-                                      product.name,
-                                      product.imageUrl,
-                                      product.price,
-                                      product.description,
-                                    );
-                              },
-                              child: const Text("Add to Cart"),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                final limitedProducts = products.take(4).toList();
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // Two products in horizontal
+                    childAspectRatio: 0.75, // Adjust aspect ratio if needed
                   ),
+                  itemCount: limitedProducts.length,
+                  itemBuilder: (context, index) {
+                    final product = limitedProducts[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 8.0),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            product.imageUrl,
+                            width: double.infinity,
+                            height: 100,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(Icons.error, size: 100);
+                            },
+                          ),
+                          Text(product.name),
+                          Text("Tsh${product.price.toStringAsFixed(2)}"),
+                          ElevatedButton(
+                            onPressed: () {
+                              ref.read(cartProvider.notifier).addToCart(
+                                    product.name,
+                                    product.imageUrl,
+                                    product.price,
+                                    product.description,
+                                  );
+                            },
+                            child: const Text("Add to Cart"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, stackTrace) =>
                   Center(child: Text('Failed to load products')),
-            ),
+            )
           ],
         ),
       ),
@@ -176,7 +178,7 @@ class CartItemWidget extends StatelessWidget {
         height: 50,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
-          return const Icon(Icons.error, size: 50); // Handle broken image links
+          return const Icon(Icons.error, size: 50);
         },
       ),
       title: Text(item.name),

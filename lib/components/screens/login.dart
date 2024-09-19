@@ -14,7 +14,6 @@ class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -41,7 +40,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           context: context,
         );
       } catch (error) {
-        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: $error')),
         );
@@ -64,71 +62,64 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                SizedBox(height: 2),
-                Column(
-                  children: const <Widget>[
-                    Icon(
-                      Icons.lock,
-                      size: 50,
-                      color: Colors.purple,
-                    ),
-                    SizedBox(height: 20.0),
-                    Text(
-                      "Welcome Back!",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                Icon(
+                  Icons.lock,
+                  size: 50,
+                  color: Colors.purple,
                 ),
-                Column(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: _usernameController,
-                      decoration: InputDecoration(
-                        hintText: "Email",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide.none,
-                        ),
-                        fillColor: Colors.purple.withOpacity(0.1),
-                        filled: true,
-                        prefixIcon: const Icon(Icons.person),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Email is required';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: InputDecoration(
-                        hintText: "Password",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide.none,
-                        ),
-                        fillColor: Colors.purple.withOpacity(0.1),
-                        filled: true,
-                        prefixIcon: const Icon(Icons.key),
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Password is required';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
+                const SizedBox(height: 20.0),
+                const Text(
+                  "Welcome Back!",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    hintText: "Email",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18),
+                      borderSide: BorderSide.none,
+                    ),
+                    fillColor: Colors.purple.withOpacity(0.1),
+                    filled: true,
+                    prefixIcon: const Icon(Icons.person),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email is required';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    hintText: "Password",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18),
+                      borderSide: BorderSide.none,
+                    ),
+                    fillColor: Colors.purple.withOpacity(0.1),
+                    filled: true,
+                    prefixIcon: const Icon(Icons.key),
+                  ),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password is required';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
@@ -137,7 +128,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ForgotPasswordScreen(),
+                            builder: (context) => const ForgotPasswordScreen(),
                           ),
                         );
                       },
@@ -148,22 +139,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.only(top: 0, left: 0),
-                  child: ElevatedButton(
-                    onPressed: _isLoading ? null : () => _login(context),
-                    style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      backgroundColor: Colors.purple,
-                    ),
-                    child: _isLoading
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text(
-                            "Login",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
-                          ),
+                ElevatedButton(
+                  onPressed: _isLoading ? null : () => _login(context),
+                  style: ElevatedButton.styleFrom(
+                    shape: const StadiumBorder(),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    backgroundColor: Colors.purple,
                   ),
+                  child: _isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text(
+                          "Login",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -174,7 +162,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RegisterScreen(),
+                            builder: (context) => const RegisterScreen(),
                           ),
                         );
                       },
