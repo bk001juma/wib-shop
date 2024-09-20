@@ -1,16 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wibSHOP/components/screens/cart_provider.dart';
 
 class ProductDetailsScreen extends ConsumerWidget {
   final String name;
-  final String imageUrl;
+  final String image;
   final double price;
   final String description;
 
   const ProductDetailsScreen({
     required this.name,
-    required this.imageUrl,
+    required this.image,
     required this.price,
     required this.description,
     super.key,
@@ -39,11 +41,11 @@ class ProductDetailsScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              imageUrl,
+            Image.memory(
+              base64.decode(image),
               width: double.infinity,
               height: 300,
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
               errorBuilder: (context, error, stackTrace) {
                 return const Icon(Icons.error);
               },
@@ -84,7 +86,7 @@ class ProductDetailsScreen extends ConsumerWidget {
               onPressed: () {
                 ref
                     .read(cartProvider.notifier)
-                    .addToCart(name, imageUrl, price, description);
+                    .addToCart(name, image, price, description);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Product added to cart!'),

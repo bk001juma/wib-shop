@@ -51,7 +51,7 @@ class ProductService {
 class Product {
   final int id;
   final String name;
-  final String imageUrl;
+  final String image;
   final double price;
   final String description;
   final String category;
@@ -59,7 +59,7 @@ class Product {
   Product({
     required this.id,
     required this.name,
-    required this.imageUrl,
+    required this.image,
     required this.price,
     required this.description,
     required this.category,
@@ -69,7 +69,7 @@ class Product {
     return Product(
       id: json['id'],
       name: json['name'] as String? ?? 'Unknown',
-      imageUrl: json['image'] as String? ?? '',
+      image: json['image'] as String? ?? '',
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       description: json['description'] as String? ?? 'No description',
       category: json['category'] as String? ?? "",
@@ -80,7 +80,7 @@ class Product {
     return {
       'id': id,
       'name': name,
-      'image': imageUrl,
+      'image': image,
       'price': price,
       'description': description,
       'category': category,

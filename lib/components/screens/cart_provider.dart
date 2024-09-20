@@ -1,37 +1,45 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibSHOP/components/screens/cart_item.dart';
 
 // Cart item model
+class CartItemModel {
+  final String name;
+  final String image;
+  final double price;
+  final String description;
+  int quantity;
+
+  CartItemModel({
+    required this.name,
+    required this.image,
+    required this.price,
+    required this.description,
+    this.quantity = 1,
+  });
+}
 
 // Cart notifier
-class CartNotifier extends StateNotifier<List<CartItem>> {
+class CartNotifier extends StateNotifier<List<CartItemModel>> {
   CartNotifier() : super([]);
 
   void addToCart(
       String name, String imageUrl, double price, String description) {
     // Check if the item is already in the cart
-    final existingIndex = state
-        .indexWhere((item) => item.name == name && item.imageUrl == imageUrl);
+    final existingIndex =
+        state.indexWhere((item) => item.name == name && item.image == imageUrl);
     if (existingIndex >= 0) {
       // Update the quantity if the item is already in the cart
       final updatedItem = state[existingIndex];
+      updatedItem.quantity++;
       state = [
-        ...state
-          ..[existingIndex] = CartItem(
-            name: updatedItem.name,
-            imageUrl: updatedItem.imageUrl,
-            price: updatedItem.price,
-            description: updatedItem.description,
-            quantity: updatedItem.quantity + 1,
-          ),
-      ];
+        ...state..[existingIndex] = updatedItem
+      ]; // Update state with incremented quantity
     } else {
       // Add a new item to the cart
       state = [
         ...state,
-        CartItem(
+        CartItemModel(
           name: name,
-          imageUrl: imageUrl,
+          image: imageUrl,
           price: price,
           description: description,
         ),
@@ -40,18 +48,16 @@ class CartNotifier extends StateNotifier<List<CartItem>> {
   }
 
   void removeFromCart(int index) {
-    state = [
-      ...state..removeAt(index),
-    ];
+    state = [...state..removeAt(index)];
   }
 
   void updateQuantity(int index, int newQuantity) {
     final item = state[index];
     state = [
       ...state
-        ..[index] = CartItem(
+        ..[index] = CartItemModel(
           name: item.name,
-          imageUrl: item.imageUrl,
+          image: item.image,
           price: item.price,
           description: item.description,
           quantity: newQuantity,
@@ -60,5 +66,6 @@ class CartNotifier extends StateNotifier<List<CartItem>> {
   }
 }
 
-final cartProvider = StateNotifierProvider<CartNotifier, List<CartItem>>(
-    (ref) => CartNotifier());
+final cartProvider = StateNotifierProvider<CartNotifier, List<CartItemModel>>(
+  (ref) => CartNotifier(),
+);

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wibSHOP/components/screens/cart_item.dart';
+import 'package:wibSHOP/components/screens/product_display.dart';
 import 'package:wibSHOP/services/product_provider.dart';
 import 'package:wibSHOP/components/screens/cart_provider.dart';
 
 class CartPage extends ConsumerWidget {
   final String logoImage = "asset/images/logo.png";
+
   const CartPage({super.key});
 
   @override
@@ -21,17 +23,11 @@ class CartPage extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: AssetImage(logoImage),
-                  ),
-                )
-              ],
+            Center(
+              child: CircleAvatar(
+                radius: 30,
+                backgroundImage: AssetImage(logoImage),
+              ),
             ),
             Container(
               padding: const EdgeInsets.all(16.0),
@@ -42,9 +38,10 @@ class CartPage extends ConsumerWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: cartItems.length,
                     itemBuilder: (context, index) {
-                      final item = cartItems[index];
+                      final item =
+                          cartItems[index]; // This is of type CartItemModel
                       return CartItemWidget(
-                        item: item,
+                        items: item, // Pass the CartItemModel directly
                         onQuantityChanged: (newQuantity) {
                           ref
                               .read(cartProvider.notifier)
@@ -79,7 +76,7 @@ class CartPage extends ConsumerWidget {
                         child: Text(value),
                       );
                     }).toList(),
-                    onChanged: (newValue) {},
+                    onChanged: (newValue) {}, // Handle delivery option change
                   ),
                 ],
               ),
@@ -113,35 +110,20 @@ class CartPage extends ConsumerWidget {
                   itemCount: limitedProducts.length,
                   itemBuilder: (context, index) {
                     final product = limitedProducts[index];
-                    return Card(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8.0),
-                      child: Column(
-                        children: [
-                          Image.network(
-                            product.imageUrl,
-                            width: double.infinity,
-                            height: 100,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Icon(Icons.error, size: 100);
-                            },
-                          ),
-                          Text(product.name),
-                          Text("Tsh${product.price.toStringAsFixed(2)}"),
-                          ElevatedButton(
-                            onPressed: () {
-                              ref.read(cartProvider.notifier).addToCart(
-                                    product.name,
-                                    product.imageUrl,
-                                    product.price,
-                                    product.description,
-                                  );
-                            },
-                            child: const Text("Add to Cart"),
-                          ),
-                        ],
-                      ),
+                    return ProductDisplay(
+                      name: product.name,
+                      image: product.image,
+                      price: product.price,
+                      description: product.description,
+                      showAddToCartButton: true, // Show button on CartPage
+                      onAddToCart: () {
+                        ref.read(cartProvider.notifier).addToCart(
+                              product.name,
+                              product.image,
+                              product.price,
+                              product.description,
+                            );
+                      },
                     );
                   },
                 );
@@ -149,67 +131,9 @@ class CartPage extends ConsumerWidget {
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, stackTrace) =>
                   Center(child: Text('Failed to load products')),
-            )
+            ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class CartItemWidget extends StatelessWidget {
-  final CartItem item;
-  final Function(int) onQuantityChanged;
-  final Function() onRemove;
-
-  const CartItemWidget({
-    super.key,
-    required this.item,
-    required this.onQuantityChanged,
-    required this.onRemove,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.network(
-        item.imageUrl,
-        width: 50,
-        height: 50,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) {
-          return const Icon(Icons.error, size: 50);
-        },
-      ),
-      title: Text(item.name),
-      subtitle: Text("Tsh${item.price.toStringAsFixed(2)}"),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            icon: const Icon(
-              Icons.remove,
-              color: Colors.orange,
-            ),
-            onPressed: () {
-              if (item.quantity > 1) {
-                onQuantityChanged(item.quantity - 1);
-              }
-            },
-          ),
-          Text(item.quantity.toString()),
-          IconButton(
-            icon: const Icon(
-              Icons.add,
-              color: Colors.green,
-            ),
-            onPressed: () => onQuantityChanged(item.quantity + 1),
-          ),
-          IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: onRemove,
-          ),
-        ],
       ),
     );
   }

@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wibSHOP/components/screens/cartpage.dart';
 import 'package:wibSHOP/components/screens/guide.dart';
+import 'package:wibSHOP/components/screens/card.dart';
 import 'package:wibSHOP/components/screens/product_details.dart';
+import 'package:wibSHOP/components/screens/product_display.dart';
 import 'package:wibSHOP/components/screens/profileAccount.dart';
 import 'package:wibSHOP/components/screens/register.dart';
 import 'package:wibSHOP/components/screens/login.dart';
 import 'package:wibSHOP/components/screens/splash_screen.dart';
 import 'package:wibSHOP/services/product_provider.dart';
-import 'package:wibSHOP/services/product_services.dart';
 import 'package:wibSHOP/utils/theme/theme.dart';
 
 void main() {
@@ -102,6 +103,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             SliverToBoxAdapter(
               child: _buildCategoryList(),
             ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 350,
+                child: ProductCard(),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Text(
+                "Popular Products",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
             productsAsyncValue.when(
               data: (products) {
                 products.shuffle();
@@ -115,21 +129,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   itemBuilder: (context, index) {
                     final product = products[index];
                     return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductDetailsScreen(
-                              name: product.name,
-                              imageUrl: product.imageUrl,
-                              price: product.price,
-                              description: product.description,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetailsScreen(
+                                name: product.name,
+                                image: product.image,
+                                price: product.price,
+                                description: product.description,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      child: _buildProductCard(product),
-                    );
+                          );
+                        },
+                        child: ProductDisplay(
+                          image: product.image,
+                          name: product.name,
+                          price: product.price,
+                          description: product.description,
+                        ));
                   },
                 );
               },
@@ -188,61 +206,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildProductCard(Product product) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 255, 255, 255),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 1,
-            color: Color.fromARGB(255, 187, 186, 186),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Image.network(
-              'http://192.168.0.27:8080${product.imageUrl}', // Constructed URL
-              width: double.infinity,
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) {
-                print('Image load error: $error'); // Debugging
-                return const Icon(Icons.error);
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product.name,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Text(
-                  'Tsh${product.price}',
-                  style: const TextStyle(color: Colors.red, fontSize: 14),
-                ),
-                Text(
-                  product.description,
-                  style: const TextStyle(color: Colors.black, fontSize: 12),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
