@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibSHOP/components/screens/cart_provider.dart';
+import 'package:wibshop/components/screens/cart_provider.dart';
 
 class ProductDetailsScreen extends ConsumerWidget {
   final String name;

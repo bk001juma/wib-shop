@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibSHOP/services/product_services.dart';
+import 'package:wibshop/services/product_services.dart';
 
 // Define a StateNotifier for managing product fetching
 class ProductNotifier extends StateNotifier<AsyncValue<List<Product>>> {

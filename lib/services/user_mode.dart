@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibSHOP/components/screens/login.dart';
-import 'package:wibSHOP/main.dart';
-import 'package:wibSHOP/services/services.dart'; // Replace with actual home screen
+import 'package:wibshop/components/screens/home_screen.dart';
+import 'package:wibshop/components/screens/login.dart';
+import 'package:wibshop/services/services.dart'; // Replace with actual home screen
 
 class AuthNotifier extends StateNotifier<bool> {
   final AuthServices _authServices;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibSHOP/components/screens/cart_item.dart';
-import 'package:wibSHOP/components/screens/product_display.dart';
-import 'package:wibSHOP/services/product_provider.dart';
-import 'package:wibSHOP/components/screens/cart_provider.dart';
+import 'package:wibshop/components/screens/cart_item.dart';
+import 'package:wibshop/components/screens/product_display.dart';
+import 'package:wibshop/services/product_provider.dart';
+import 'package:wibshop/components/screens/cart_provider.dart';
 
 class CartPage extends ConsumerWidget {
   final String logoImage = "asset/images/logo.png";

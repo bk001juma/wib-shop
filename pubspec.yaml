@@ -1,4 +1,4 @@
-name: wibSHOP
+name: wibshop
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -39,6 +39,7 @@ dependencies:
   path: ^1.9.0
   add_to_cart_animation: ^2.0.4
   carousel_slider: ^5.0.0
+  flutter_svg: ^2.0.10+1
  
   
 
@@ -87,17 +88,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - asset/images/products.json
-    - asset/images/logo.png
-    - asset/images/baraka.jpg
-    - asset/images/skirt.jpg
-    - asset/images/shoes.png
-    - asset/images/tone-jeans-men.jpg
-    - asset/images/jacket.jpg
-    - asset/images/bags.jpg
-    - asset/images/t-shirt.jpg
-    - asset/images/shirts.jpg
-    - asset/images/t-shirtkali.jpeg
+    - asset/images/
+    - asset/icons/
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

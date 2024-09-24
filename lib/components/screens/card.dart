@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibSHOP/components/screens/product_details.dart';
-import 'package:wibSHOP/services/product_provider.dart';
+import 'package:wibshop/components/screens/product_details.dart';
+import 'package:wibshop/services/product_provider.dart';
 
 class ProductCard extends ConsumerWidget {
   const ProductCard({super.key});

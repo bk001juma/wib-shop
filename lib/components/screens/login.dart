@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibSHOP/components/screens/forgotpassword.dart';
-import 'package:wibSHOP/components/screens/register.dart';
-import 'package:wibSHOP/services/services.dart';
-import 'package:wibSHOP/services/user_mode.dart';
+import 'package:wibshop/components/screens/forgotpassword.dart';
+import 'package:wibshop/components/screens/register.dart';
+import 'package:wibshop/services/services.dart';
+import 'package:wibshop/services/user_mode.dart';
 
 final authServiceProvider = Provider<AuthServices>((ref) => AuthServices());
 final authNotifierProvider = StateNotifierProvider<AuthNotifier, bool>((ref) {

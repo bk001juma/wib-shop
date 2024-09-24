@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:wibSHOP/components/screens/Privacy.dart';
-import 'package:wibSHOP/components/screens/Settings.dart';
-import 'package:wibSHOP/components/screens/help_center.dart';
-import 'package:wibSHOP/components/screens/my_order.dart';
-import 'package:wibSHOP/components/screens/my_profile.dart';
-import 'package:wibSHOP/components/screens/order_history.dart';
-import 'package:wibSHOP/main.dart';
+import 'package:wibshop/components/screens/Privacy.dart';
+import 'package:wibshop/components/screens/Settings.dart';
+import 'package:wibshop/components/screens/help_center.dart';
+import 'package:wibshop/components/screens/home_screen.dart';
+import 'package:wibshop/components/screens/my_order.dart';
+import 'package:wibshop/components/screens/my_profile.dart';
+import 'package:wibshop/components/screens/order_history.dart';
 
 class Profileaccount extends StatelessWidget {
   final String customerName = "Baraka Mashimbe"; // Example customer name

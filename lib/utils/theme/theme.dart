@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wibSHOP/utils/theme/custom_theme/appbar_theme.dart';
-import 'package:wibSHOP/utils/theme/custom_theme/bottom_sheet_theme.dart';
-import 'package:wibSHOP/utils/theme/custom_theme/elevated_button_theme.dart';
-import 'package:wibSHOP/utils/theme/custom_theme/text_theme.dart';
+import 'package:wibshop/utils/theme/custom_theme/appbar_theme.dart';
+import 'package:wibshop/utils/theme/custom_theme/bottom_sheet_theme.dart';
+import 'package:wibshop/utils/theme/custom_theme/elevated_button_theme.dart';
+import 'package:wibshop/utils/theme/custom_theme/text_theme.dart';
 
 class TMyAppTheme {
   TMyAppTheme._();
