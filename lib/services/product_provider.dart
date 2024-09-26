@@ -12,9 +12,29 @@ class ProductNotifier extends StateNotifier<AsyncValue<List<Product>>> {
   Future<void> fetchProducts() async {
     try {
       final products = await _productService.fetchProducts();
-      state = AsyncValue.data(products);
+      if (mounted) {
+        // Ensure notifier is still mounted before updating state
+        state = AsyncValue.data(products);
+      }
     } catch (error, stackTrace) {
-      state = AsyncValue.error(error, stackTrace); // Include stackTrace
+      if (mounted) {
+        // Also check here to avoid setting state after dispose
+        state = AsyncValue.error(error, stackTrace);
+      }
+    }
+  }
+
+  Future<void> getProductsByCategory(String category) async {
+    state = const AsyncValue.loading(); // Set state to loading
+    try {
+      final products = await _productService.getProductsByCategory(category);
+      if (mounted) {
+        state = AsyncValue.data(products); // Update state with fetched products
+      }
+    } catch (error, stackTrace) {
+      if (mounted) {
+        state = AsyncValue.error(error, stackTrace); // Handle error
+      }
     }
   }
 }
@@ -41,9 +61,15 @@ class ProductPostNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
     try {
       await _productService.postProduct(product);
-      state = const AsyncValue.data(null);
+      if (mounted) {
+        // Ensure notifier is still mounted before updating state
+        state = const AsyncValue.data(null);
+      }
     } catch (e, stackTrace) {
-      state = AsyncValue.error(e, stackTrace); // Ensure stackTrace is included
+      if (mounted) {
+        // Also check here to avoid setting state after dispose
+        state = AsyncValue.error(e, stackTrace);
+      }
     }
   }
 }

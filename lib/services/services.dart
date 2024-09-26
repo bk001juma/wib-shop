@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthServices {
-  final String _loginUrl = 'http://192.168.0.85:8080/api/users/login';
-  final String _registerUrl = 'http://192.168.0.85:8080/api/users/register';
+  final String _loginUrl = 'http://192.168.0.38:8080/api/users/login';
+  final String _registerUrl = 'http://192.168.0.38:8080/api/users/register';
 
   Future<bool> login({
     required String email,

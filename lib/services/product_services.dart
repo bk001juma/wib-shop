@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 
 class ProductService {
   final String _fetchApiUrl =
-      'http://192.168.0.85:8080/api/products/get'; // URL for fetching products
+      'http://192.168.0.38:8080/api/products/get'; // URL for fetching products
   final String _postApiUrl =
-      'http://192.168.0.85:8080/api/products'; // URL for posting products
+      'http://192.168.0.38:8080/api/products'; // URL for posting products
 
   // Method to fetch all products
   Future<List<Product>> fetchProducts() async {

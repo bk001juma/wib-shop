@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wibshop/components/screens/cart_provider.dart';
+import 'package:wibshop/components/cart/cart_provider.dart';
 
 // Cart item model
 class CartItem {

@@ -21,11 +21,10 @@ class CartItemModel {
 class CartNotifier extends StateNotifier<List<CartItemModel>> {
   CartNotifier() : super([]);
 
-  void addToCart(
-      String name, String imageUrl, double price, String description) {
+  void addToCart(String name, String image, double price, String description) {
     // Check if the item is already in the cart
     final existingIndex =
-        state.indexWhere((item) => item.name == name && item.image == imageUrl);
+        state.indexWhere((item) => item.name == name && item.image == image);
     if (existingIndex >= 0) {
       // Update the quantity if the item is already in the cart
       final updatedItem = state[existingIndex];
@@ -39,7 +38,7 @@ class CartNotifier extends StateNotifier<List<CartItemModel>> {
         ...state,
         CartItemModel(
           name: name,
-          image: imageUrl,
+          image: image,
           price: price,
           description: description,
         ),

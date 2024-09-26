@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibshop/components/screens/card.dart';
-import 'package:wibshop/components/screens/product_details.dart';
-import 'package:wibshop/components/screens/product_display.dart';
+import 'package:wibshop/components/homescreen/card.dart';
+import 'package:wibshop/components/homescreen/category_screen.dart';
+import 'package:wibshop/components/homescreen/product_details.dart';
+import 'package:wibshop/components/homescreen/product_display.dart';
 import 'package:wibshop/services/product_provider.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -180,21 +181,59 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       height: 100,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: const [
+        children: [
           CategoryItem(
-              label: 'Trousers', imageUrl: "asset/images/tone-jeans-men.jpg"),
-          SizedBox(width: 10),
-          CategoryItem(label: 'Skirts', imageUrl: 'asset/images/skirt.jpg'),
-          SizedBox(width: 10),
-          CategoryItem(label: 'Shirts', imageUrl: 'asset/images/shirts.jpg'),
-          SizedBox(width: 10),
-          CategoryItem(label: 'T-Shirts', imageUrl: 'asset/images/t-shirt.jpg'),
-          SizedBox(width: 10),
-          CategoryItem(label: 'Jackets', imageUrl: 'asset/images/jacket.jpg'),
-          SizedBox(width: 10),
-          CategoryItem(label: 'Bags', imageUrl: 'asset/images/bags.jpg'),
-          SizedBox(width: 10),
+            label: 'Trousers',
+            imageUrl: "asset/images/tone-jeans-men.jpg",
+            onTap: () => _fetchAndDisplayProductsByCategory("trouser"),
+          ),
+          const SizedBox(width: 10),
+          CategoryItem(
+            label: 'Skirts',
+            imageUrl: 'asset/images/skirt.jpg',
+            onTap: () => _fetchAndDisplayProductsByCategory("skirt"),
+          ),
+          const SizedBox(width: 10),
+          CategoryItem(
+            label: 'Shirts',
+            imageUrl: 'asset/images/shirts.jpg',
+            onTap: () => _fetchAndDisplayProductsByCategory("shirt"),
+          ),
+          const SizedBox(width: 10),
+          CategoryItem(
+            label: 'T-Shirts',
+            imageUrl: 'asset/images/t-shirt.jpg',
+            onTap: () => _fetchAndDisplayProductsByCategory("t-shirt"),
+          ),
+          const SizedBox(width: 10),
+          CategoryItem(
+            label: 'Jackets',
+            imageUrl: 'asset/images/jacket.jpg',
+            onTap: () => _fetchAndDisplayProductsByCategory("jacket"),
+          ),
+          const SizedBox(width: 10),
+          CategoryItem(
+            label: 'Bags',
+            imageUrl: 'asset/images/bags.jpg',
+            onTap: () => _fetchAndDisplayProductsByCategory("bag"),
+          ),
+          const SizedBox(width: 10),
+          CategoryItem(
+            label: 'Shoes',
+            imageUrl: 'asset/images/shoes.png',
+            onTap: () => _fetchAndDisplayProductsByCategory("shoes"),
+          ),
+          const SizedBox(width: 10),
         ],
+      ),
+    );
+  }
+
+  void _fetchAndDisplayProductsByCategory(String category) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CategoryProductsScreen(category: category),
       ),
     );
   }
@@ -203,37 +242,46 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 class CategoryItem extends StatelessWidget {
   final String label;
   final String imageUrl;
+  final VoidCallback onTap; // Add this line for the callback
 
-  const CategoryItem({super.key, required this.label, required this.imageUrl});
+  const CategoryItem({
+    super.key,
+    required this.label,
+    required this.imageUrl,
+    required this.onTap, // Add this parameter
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: Colors.grey[300],
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: Image.asset(
-              imageUrl,
-              fit: BoxFit.cover,
-              width: 60,
-              height: 60,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.error);
-              },
+    return GestureDetector(
+      onTap: onTap, // Use the callback here
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.grey[300],
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.asset(
+                imageUrl,
+                fit: BoxFit.cover,
+                width: 60,
+                height: 60,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.error);
+                },
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontWeight: FontWeight.normal),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontWeight: FontWeight.normal),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wibshop/components/screens/account.dart';
-import 'package:wibshop/components/screens/buying.dart';
-import 'package:wibshop/components/screens/order.dart';
-import 'package:wibshop/components/screens/security.dart';
-import 'package:wibshop/components/screens/selling.dart';
-import 'package:wibshop/components/screens/shipping.dart';
+import 'package:wibshop/components/guide/account.dart';
+import 'package:wibshop/components/guide/buying.dart';
+import 'package:wibshop/components/guide/order.dart';
+import 'package:wibshop/components/guide/security.dart';
+import 'package:wibshop/components/guide/selling.dart';
+import 'package:wibshop/components/guide/shipping.dart';
 
 class GuideScreen extends StatelessWidget {
   const GuideScreen({super.key});

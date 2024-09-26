@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibshop/components/screens/forgotpassword.dart';
-import 'package:wibshop/components/screens/register.dart';
+import 'package:wibshop/components/account/forgotpassword.dart';
+import 'package:wibshop/components/account/register.dart';
 import 'package:wibshop/services/services.dart';
 import 'package:wibshop/services/user_mode.dart';
 

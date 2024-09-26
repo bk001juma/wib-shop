@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wibshop/components/screens/home_screen.dart';
+import 'package:wibshop/components/homescreen/home_screen.dart';
 
 class LogoutPage extends StatelessWidget {
   const LogoutPage({super.key});

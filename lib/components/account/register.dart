@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibshop/components/screens/login.dart'; // Import AuthNotifier
+import 'package:wibshop/components/account/login.dart'; // Import AuthNotifier
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});

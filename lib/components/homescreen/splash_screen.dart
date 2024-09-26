@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wibshop/components/screens/home_screen.dart';
+import 'package:wibshop/components/homescreen/home_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget {
           Expanded(
             child: Center(
               child: Image.asset(
-                "asset/images/logo.png", // Ensure this path is correct
+                "asset/images/logo.png",
                 width: 200,
               ),
             ),

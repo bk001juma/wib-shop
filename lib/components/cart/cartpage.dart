@@ -1,9 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibshop/components/screens/cart_item.dart';
-import 'package:wibshop/components/screens/product_display.dart';
+import 'package:wibshop/components/cart/cart_provider.dart';
+import 'package:wibshop/components/homescreen/product_display.dart';
 import 'package:wibshop/services/product_provider.dart';
-import 'package:wibshop/components/screens/cart_provider.dart';
 
 class CartPage extends ConsumerWidget {
   final String logoImage = "asset/images/logo.png";
@@ -38,10 +39,9 @@ class CartPage extends ConsumerWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: cartItems.length,
                     itemBuilder: (context, index) {
-                      final item =
-                          cartItems[index]; // This is of type CartItemModel
+                      final item = cartItems[index];
                       return CartItemWidget(
-                        items: item, // Pass the CartItemModel directly
+                        item: item,
                         onQuantityChanged: (newQuantity) {
                           ref
                               .read(cartProvider.notifier)
@@ -104,8 +104,8 @@ class CartPage extends ConsumerWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Two products in horizontal
-                    childAspectRatio: 0.75, // Adjust aspect ratio if needed
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.75,
                   ),
                   itemCount: limitedProducts.length,
                   itemBuilder: (context, index) {
@@ -115,7 +115,7 @@ class CartPage extends ConsumerWidget {
                       image: product.image,
                       price: product.price,
                       description: product.description,
-                      showAddToCartButton: true, // Show button on CartPage
+                      showAddToCartButton: true,
                       onAddToCart: () {
                         ref.read(cartProvider.notifier).addToCart(
                               product.name,
@@ -134,6 +134,56 @@ class CartPage extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CartItemWidget extends StatelessWidget {
+  final CartItemModel item;
+  final ValueChanged<int> onQuantityChanged;
+  final VoidCallback onRemove;
+
+  const CartItemWidget({
+    required this.item,
+    required this.onQuantityChanged,
+    required this.onRemove,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Image.memory(
+        base64.decode(item.image),
+        width: 50,
+        height: 50,
+        fit: BoxFit.contain,
+        errorBuilder: (context, error, stackTrace) {
+          return const Icon(Icons.error);
+        },
+      ),
+      title: Text(item.name),
+      subtitle: Row(
+        children: [
+          Text('Tsh${item.price} x ${item.quantity}'),
+          const SizedBox(width: 16),
+          IconButton(
+            icon: const Icon(Icons.remove),
+            onPressed: item.quantity > 1
+                ? () => onQuantityChanged(item.quantity - 1)
+                : null,
+          ),
+          Text(item.quantity.toString()),
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => onQuantityChanged(item.quantity + 1),
+          ),
+        ],
+      ),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete),
+        onPressed: onRemove,
       ),
     );
   }

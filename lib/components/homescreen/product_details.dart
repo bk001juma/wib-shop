@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibshop/components/screens/cart_provider.dart';
+import 'package:wibshop/components/cart/cart_provider.dart';
 
 class ProductDetailsScreen extends ConsumerWidget {
   final String name;
@@ -20,20 +20,39 @@ class ProductDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Calculate the total number of items in the cart
+    final cartItems = ref.watch(cartProvider);
+    final totalItemCount =
+        cartItems.fold(0, (sum, item) => sum + item.quantity);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(name),
         backgroundColor: const Color.fromARGB(255, 238, 200, 245),
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.shopping_cart,
-              size: 40,
+            icon: Stack(
+              children: [
+                Icon(Icons.shopping_cart, size: 40),
+                if (totalItemCount > 0)
+                  Positioned(
+                    right: 0,
+                    child: CircleAvatar(
+                      radius: 10,
+                      backgroundColor: Colors.red,
+                      child: Text(
+                        totalItemCount.toString(),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  )
+              ],
             ),
             onPressed: () {
               Navigator.pushNamed(context, '/cart');
             },
-          ),
+          )
         ],
       ),
       body: Padding(

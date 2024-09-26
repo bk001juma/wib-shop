@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wibshop/components/screens/admin.dart';
-import 'package:wibshop/components/screens/cartpage.dart';
-import 'package:wibshop/components/screens/guide.dart';
-import 'package:wibshop/components/screens/home_screen.dart';
-import 'package:wibshop/components/screens/login.dart';
-import 'package:wibshop/components/screens/profileAccount.dart';
-import 'package:wibshop/components/screens/register.dart';
-import 'package:wibshop/components/screens/splash_screen.dart';
+import 'package:wibshop/components/admin/admin.dart';
+import 'package:wibshop/components/cart/cartpage.dart';
+import 'package:wibshop/components/guide/guide.dart';
+import 'package:wibshop/components/homescreen/home_screen.dart';
+import 'package:wibshop/components/account/login.dart';
+import 'package:wibshop/components/account/profileAccount.dart';
+import 'package:wibshop/components/account/register.dart';
+import 'package:wibshop/components/homescreen/splash_screen.dart';
 import 'package:wibshop/utils/theme/theme.dart';
 
 void main() {
